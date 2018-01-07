@@ -16,5 +16,6 @@ Including another URLconf
 from django.conf.urls import url
 from babilono_app import views
 urlpatterns = [
-    url(r'^$', views.main_page, name='main')
+    url(r'^$', views.main_page, name='main'),
+    url(r'^courses/$', views.courses_page, name='courses')
 ]
