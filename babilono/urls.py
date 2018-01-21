@@ -15,7 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import url
 from babilono_app import views
+
 urlpatterns = [
     url(r'^$', views.main_page, name='main'),
-    url(r'^courses/$', views.courses_page, name='courses')
+    url(r'^courses/$', views.courses_page, name='courses'),
+    url(r'^pupil/signup$', views.pupil_signup, name='pupil-signup'),
+    url(r'^teachers/signup$', views.teacher_signup, name='teacher-signup'),
+    url(r'^signin/$', views.sign_in, name='sign-in'),
 ]

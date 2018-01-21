@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Rejestracja{% endblock %}
+{% block meat %}
+    <header class="masthead">
+        <div class="container">
+            <img class="img-fluid" src="/static/img/profile.png" alt="" width="150">
+            <div class="container col-md-4 offset-4">
+
+                <div class="intro-text">
+                    <h2>Rejestracja</h2>
+                    <form method="post">
+                        {% if form.errors %}
+                            {% for field in form %}
+                                {{ field.errors }}
+                            {% endfor %}
+                        {% endif %}
+                        {% csrf_token %}
+                        {{ form.username }}
+                        {{ form.password1 }}
+                        {{ form.password2 }}
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">Zarejestruj się</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <p>Już posiadasz konto <a href="{% url 'sign-in' %}" style="color: white">Zaloguj się!</a></p>
+    </header>
+{% endblock %}
