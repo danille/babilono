@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}
+    Moje kursy
+{% endblock %}
+{% block meat %}
+
+{#    {% for course in courses %}#}
+{#        <div class="jumbotron">#}
+{#        <h2>#}
+{#            <a href="{% url course. %}"#}
+{#        </h2>#}
+{#        </div>#}
+{#    {% endfor %}#}
+    {% for lecture in lectures %}
+        <div class="jumbotron">
+            <h2>
+                {{ lecture.title }}
+
+            </h2>
+        </div>
+        {{ lecture.content }}
+    {% endfor %}
+
+{% endblock %}

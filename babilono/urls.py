@@ -13,13 +13,19 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.urls import include, path
+from django.contrib import admin
+
 from babilono_app import views
 
 urlpatterns = [
-    url(r'^$', views.main_page, name='main'),
-    url(r'^courses/$', views.courses_page, name='courses'),
-    url(r'^pupil/signup$', views.pupil_signup, name='pupil-signup'),
-    url(r'^teachers/signup$', views.teacher_signup, name='teacher-signup'),
-    url(r'^signin/$', views.sign_in, name='sign-in'),
+    path('admin/', admin.site.urls),
+    path('', views.home_page, name='home'),
+    path('courses/', views.courses_page, name='courses'),
+    path('courses/<int:pk>/', views.enroll_in_course, name='enroll-in-course'),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/students/signup', views.student_signup, name='student-signup'),
+    path('accounts/teachers/signup', views.teacher_signup, name='teacher-signup'),
+    path('accounts/students/courses', views.student_course_list, name='student-course-list'),
+    path('signin/', views.sign_in, name='sign-in'),
 ]

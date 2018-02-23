@@ -21,15 +21,16 @@
 
     <!-- Custom styles for this template -->
     <link href="/static/css/freelancer.min.css" rel="stylesheet">
+    <link href="/static/css/base.css" rel="stylesheet">
 
 </head>
 
 <body id="page-top">
 
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+<nav class="navbar navbar-expand-lg navbar-light " id="mainNav">
     <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="main.html">Lang Leader</a>
+        <a class="navbar-brand js-scroll-trigger" href="{% url 'home' %}">Lang Leader</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                 data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -39,17 +40,31 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="{% url 'main' %}">Informacja</a>
+                    <a class="nav-link js-scroll-trigger" href="{% url 'home' %}">Informacja</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="{% url 'courses' %}">Kursy</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="{% url 'sign-in' %}">Zaloguj</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="{% url 'teacher-signup' %}">Dla nauczycieli</a>
-                </li>
+                {% if not user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="{% url 'sign-in' %}">Zaloguj</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="{% url 'teacher-signup' %}">Dla nauczycieli</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link">Witam, {{ user }}</a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'student-course-list' %}">Moje kursy</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Wyloguj</a>
+
+                    </li>
+                {% endif %}
 
             </ul>
         </div>
@@ -57,8 +72,10 @@
 </nav>
 
 <!-- Header -->
-{%  block meat %}
+
+{% block meat %}
 {% endblock %}
+
 
 <!-- Footer -->
 <footer class="text-center">

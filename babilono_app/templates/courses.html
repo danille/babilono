@@ -3,26 +3,37 @@
 
 <!-- Header -->
 {% block meat %}
-<header id="id-courses">
-    <div class="container">
-        <h1 align="center">Dostepne kursy</h1>
-    </div>
+    <div style="background: #18bc9c; color: white">
+        <div class="container">
 
-    <!-- Courses list -->
-    <div class="container">
-        {% if course_list %}
-            <ul id="course-list">
-                {% for course in course_list %}
-                    <li>
-                        <h1>{{ course.title }}</h1>
-                        <a href="#">Enroll</a>
-                    </li>
-                {% endfor %}
+            <h1 align="center">Dostępne kursy</h1>
+        </div>
 
-            </ul>
-        {% else %}
-            <h1> There is no available courses</h1>
-        {% endif %}
+        <!-- Courses list -->
+        <div class="container">
+
+            {% if course_list %}
+                <ul id="course-list">
+                    {% for course in course_list %}
+                        <div class="jumbotron" style="background: #2c3e50">
+
+                            <li>
+                                <div class="container">
+
+                                    <h1>{{ course.title }}</h1>
+                                    <p>
+                                        {{ course.description }}
+                                    </p>
+                                    <a href="{% url 'enroll-in-course' course.pk %}">Zapisz się</a>
+                                </div>
+                            </li>
+                        </div>
+                    {% endfor %}
+
+                </ul>
+            {% else %}
+                <h1> There is no available courses</h1>
+            {% endif %}
+        </div>
     </div>
-</header>
 {% endblock %}
