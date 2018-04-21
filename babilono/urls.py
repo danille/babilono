@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.urls import include, path
 from django.contrib import admin
+from django.conf.urls import url, include
 
 from babilono_app import views
 
@@ -28,4 +29,6 @@ urlpatterns = [
     path('accounts/teachers/signup', views.teacher_signup, name='teacher-signup'),
     path('accounts/students/courses', views.student_course_list, name='student-course-list'),
     path('signin/', views.sign_in, name='sign-in'),
+
+    url(r'^auth/', include('social_django.urls', namespace='social')),  # <- Here
 ]
