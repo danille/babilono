@@ -27,6 +27,11 @@
                         <button class="btn btn-lg btn-primary btn-block" type="submit">Zaloguj się!</button>
                         <p>Nie masz jeszcze konta? <a href="{% url 'student-signup' %}" style="color: white">Zarejestruj
                             się!</a></p>
+                        <a href="{% url 'social:begin' 'google-oauth2' %}">
+                                <font color="white" size="6">
+                                    Login with Google
+                                </font>
+                        </a><br>
                     </div>
                 </form>
             </div>
