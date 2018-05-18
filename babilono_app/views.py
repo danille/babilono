@@ -2,6 +2,15 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate
 from .models import Course, Lecture, StudentCourse, StudentLecture
 from .forms import StudentSignUpForm, TeacherSignUpForm, SignInForm, StudentLectureForm
+from django.views.decorators.cache import cache_page
+
+TIMEOUT_HOURS = 0
+TIMEOUT_MINUTES = 2
+TIMEOUT = 60 * TIMEOUT_MINUTES + 3600 * TIMEOUT_HOURS
+
+TIMEOUT_HOURS_LOGGED = 0
+TIMEOUT_MINUTES_LOGGED = 1
+TIMEOUT_LOGGED = 60 * TIMEOUT_MINUTES_LOGGED + 3600 * TIMEOUT_HOURS_LOGGED
 
 
 # Create your views here.
@@ -9,11 +18,13 @@ def home_page(request):
     return render(request, 'main.html')
 
 
+@cache_page(TIMEOUT)
 def courses_page(request):
     courses = Course.objects.all()
     return render(request, 'courses.html', {'course_list': courses})
 
 
+@cache_page(TIMEOUT)
 def student_signup(request):
     if request.method == 'POST':
         form = StudentSignUpForm(request.POST)
@@ -31,6 +42,7 @@ def student_signup(request):
     return render(request, 'student_signup.html', {'form': form})
 
 
+@cache_page(TIMEOUT)
 def teacher_signup(request):
     if request.method == 'POST':
         form = TeacherSignUpForm(request.POST)
@@ -66,6 +78,7 @@ def sign_in(request):
     return render(request, 'signin.html', {'form': form})
 
 
+@cache_page(TIMEOUT_LOGGED)
 # @student_required
 def enroll_in_course(request, pk):
     course = get_object_or_404(Course, pk=pk)
@@ -81,6 +94,7 @@ def enroll_in_course(request, pk):
     return redirect('student-course-list')
 
 
+@cache_page(TIMEOUT_LOGGED)
 # @student_required
 def student_course_list(request):
     student = request.user.student
